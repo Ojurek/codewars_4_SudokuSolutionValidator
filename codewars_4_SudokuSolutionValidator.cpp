@@ -10,24 +10,39 @@ bool validSolution(unsigned int board[9][9])
         total1.insert(board[i][i]);
         for (int j = 0; j < 9; j++)
         {
-            total2.insert(board[i][j]);
-            total3.insert(board[j][i]);
+            total1.insert(board[i][j]);
+            total2.insert(board[j][i]);
             if (board[i][j] == 0)
             {
                 return false;
             }
         }
-        if ((total2.size() != 9) || (total3.size() != 9))
+
+        if ((total1.size() != 9) || (total1.size() != 9))
         {
             return false;
         }
+        total1.clear();
         total2.clear();
-        total3.clear();
     }
 
-    if (total1.size() != 9)
+    for (int i = 0; i < 9; i = i + 3)
     {
-        return false;
+        for (int j = 0; j < 9; j = j + 3)
+        {
+            for (int k = 0; k < 3; k++)
+            {
+                for (int l = 0; l < 3; l++)
+                {
+                    total1.insert(board[i + k][j + l]);
+                }
+            }
+            if (total1.size() != 9)
+            {
+                return false;
+            }
+            total1.clear();
+        }
     }
 
     return true;
