@@ -4,16 +4,32 @@
 
 bool validSolution(unsigned int board[9][9])
 {
+    std::set<unsigned int> total1, total2, total3;
     for (int i = 0; i < 9; i++)
     {
+        total1.insert(board[i][i]);
         for (int j = 0; j < 9; j++)
         {
+            total2.insert(board[i][j]);
+            total3.insert(board[j][i]);
             if (board[i][j] == 0)
             {
                 return false;
             }
         }
+        if ((total2.size() != 9) || (total3.size() != 9))
+        {
+            return false;
+        }
+        total2.clear();
+        total3.clear();
     }
+
+    if (total1.size() != 9)
+    {
+        return false;
+    }
+
     return true;
 }
 
